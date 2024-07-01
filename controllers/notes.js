@@ -5,9 +5,12 @@ const router = express.Router();
 exports.getAllNotesData = async (req, res, next) => {
   try {
     const notes = await Note.find();
-    res.status(200).json({ succes: true, data: notes });
+    if ((notes = [])) {
+      return res.status(400).json({ success: false, msg: "No notes found" });
+    }
+    res.status(200).json({ succes: true, data: notes, count: notes.length });
   } catch (err) {
-    res.status(400).json({ success: false });
+    res.status(400).json({ success: false, msg: "No notes found" });
   }
 };
 
