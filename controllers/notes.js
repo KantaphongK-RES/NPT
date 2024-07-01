@@ -13,6 +13,7 @@ exports.getNoteData = (req, res, next) => {
 
 // create note, POST /api/v1/notes, private
 exports.postNoteData = (req, res, next) => {
+  console.log(req.body);
   res.status(200).json({ succes: true, msg: "saved note data" });
 };
 
