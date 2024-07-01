@@ -15,10 +15,10 @@ exports.getAllNotesData = async (req, res, next) => {
 exports.getNoteData = async (req, res, next) => {
   try {
     const note = await Note.findById(req.params.id);
-    res.status(200).json({ succes: true, data: note });
     if (!note) {
-      res.status(400).json({ success: false });
+      return res.status(400).json({ success: false });
     }
+    res.status(200).json({ succes: true, data: note });
   } catch (err) {
     res.status(400).json({ success: false });
   }
