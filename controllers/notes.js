@@ -1,4 +1,5 @@
 const express = require("express");
+const  Note = require("../models/Note");
 const router = express.Router();
 // get all notes, GET /api/v1/notes, public
 exports.getAllNotesData = (req, res, next) => {
