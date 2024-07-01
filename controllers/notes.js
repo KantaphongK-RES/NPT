@@ -35,11 +35,32 @@ exports.postNoteData = async (req, res, next) => {
 };
 
 // Update note data, PUT /api/v1/notes/:id, private
-exports.editNoteData = (req, res, next) => {
-  res.status(200).json({ succes: true, msg: "you've edit note data" });
+exports.editNoteData = async (req, res, next) => {
+  try {
+    const editnote = await Note.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true,
+    });
+    if (!editnote) {
+      return res.status(400).json({ success: false });
+    }
+    res.status(200).json({ succes: true, data: editnote });
+  } catch (err) {
+    res.status(400).json({ success: false });
+  }
 };
 
 // Delete note data, DELETE /api/v1/notes/:id, private
-exports.deleteNote = (req, res, next) => {
-  res.status(200).json({ succes: true, msg: "note data deleted" });
+exports.deleteNote = async (req, res, next) => {
+  try {
+    const delnote = await Note.findByIdAndDelete(req.params.id);
+    if (!delnote) {
+      return res.status(400).json({ success: false });
+    }
+    res
+      .status(200)
+      .json({ succes: true, data: {}, msg: "Note deleted successfully" });
+  } catch (err) {
+    res.status(400).json({ success: false });
+  }
 };
