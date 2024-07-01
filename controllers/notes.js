@@ -1,5 +1,5 @@
 const express = require("express");
-const  Note = require("../models/Note");
+const Note = require("../models/Note");
 const router = express.Router();
 // get all notes, GET /api/v1/notes, public
 exports.getAllNotesData = (req, res, next) => {
@@ -12,9 +12,13 @@ exports.getNoteData = (req, res, next) => {
 };
 
 // create note, POST /api/v1/notes, private
-exports.postNoteData = (req, res, next) => {
-  console.log(req.body);
-  res.status(200).json({ succes: true, msg: "saved note data" });
+exports.postNoteData = async (req, res, next) => {
+  // try {
+  const note = await Note.create(req.body);
+  res.status(200).json({ succes: true, data: note });
+  // } catch (err) {
+  //   res.status(400).json({ success: false });
+  // }
 };
 
 // Update note data, PUT /api/v1/notes/:id, private
