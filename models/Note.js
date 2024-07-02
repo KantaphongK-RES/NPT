@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const slugify = require("slugify");
 
 const NotesSchema = new mongoose.Schema({
   notename: {
@@ -34,7 +35,7 @@ const NotesSchema = new mongoose.Schema({
   },
   weightsforpriority: {
     type: Number,
-    required: [true,  "Please rate the priority for note"],
+    required: [true, "Please rate the priority for note"],
     min: [1, "weight can be less than 1"],
     max: [10, "weight can be greater than 10"],
   },
@@ -47,5 +48,8 @@ const NotesSchema = new mongoose.Schema({
     default: Date.now,
   },
 });
-
+NotesSchema.pre("save", function () {
+  this.slug = slugify(this.name, { lower: true });
+  next();
+});
 module.exports = mongoose.model("Note", NotesSchema);
