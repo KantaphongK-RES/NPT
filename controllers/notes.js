@@ -5,11 +5,11 @@ exports.getAllNotesData = async (req, res, next) => {
   try {
     const notes = await Note.find();
     if (!notes) {
-      return res.status(400).json({ success: false, msg: "No notes found" });
+      return next(err);
     }
     res.status(200).json({ succes: true, data: notes, count: notes.length });
   } catch (err) {
-    res.status(400).json({ success: false, msg: "No notes found" });
+    next(err);
   }
 };
 
@@ -18,18 +18,11 @@ exports.getNoteData = async (req, res, next) => {
   try {
     const note = await Note.findById(req.params.id);
     if (!note) {
-      return next(
-        new ErrorResponse(
-          `Note not found with that id of ${req.params.id}`,
-          404
-        )
-      );
+      return next(err);
     }
     res.status(200).json({ succes: true, data: note });
   } catch (err) {
-    next(
-      new ErrorResponse(`Note not found with that id of ${req.params.id}`, 404)
-    );
+    next(err);
   }
 };
 
@@ -39,7 +32,7 @@ exports.postNoteData = async (req, res, next) => {
     const note = await Note.create(req.body);
     res.status(200).json({ succes: true, data: note });
   } catch (err) {
-    res.status(400).json({ success: false });
+    next(err);
   }
 };
 
@@ -51,11 +44,11 @@ exports.editNoteData = async (req, res, next) => {
       runValidators: true,
     });
     if (!editnote) {
-      return res.status(400).json({ success: false });
+      return next(err);
     }
     res.status(200).json({ succes: true, data: editnote });
   } catch (err) {
-    res.status(400).json({ success: false });
+    next(err);
   }
 };
 
@@ -64,12 +57,12 @@ exports.deleteNote = async (req, res, next) => {
   try {
     const delnote = await Note.findByIdAndDelete(req.params.id);
     if (!delnote) {
-      return res.status(400).json({ success: false });
+      return next(err);
     }
     res
       .status(200)
       .json({ succes: true, data: {}, msg: "Note deleted successfully" });
   } catch (err) {
-    res.status(400).json({ success: false });
+    next(err);
   }
 };
