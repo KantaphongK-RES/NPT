@@ -23,15 +23,18 @@ const NotesSchema = new mongoose.Schema({
   },
   tags: {
     type: String,
+    required: [true, "please add tags of note"],
     maxlength: [20, "name can not exceed 20 characters"],
   },
 
   subject: {
     type: String,
+    required: [true, "please add subject for note"],
     maxlength: [20, "name can not exceed 20 characters"],
   },
   weightsforpriority: {
     type: Number,
+    required: [true, "please rate the priority for note"],
     min: [1, "weight can be less than 1"],
     max: [10, "weight can be greater than 10"],
   },
