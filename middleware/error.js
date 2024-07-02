@@ -6,7 +6,7 @@ const errorHandler = (err, req, res, next) => {
 
   if (err.name === "CastError") {
     const message = `Resource not found with id of ${err.value}`;
-    err = new ErrorResponse(message, 404);
+    error = new ErrorResponse(message, 404);
   }
   console.log(err.stack.red);
   res
