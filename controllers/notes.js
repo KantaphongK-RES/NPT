@@ -18,7 +18,12 @@ exports.getNoteData = async (req, res, next) => {
   try {
     const note = await Note.findById(req.params.id);
     if (!note) {
-      return next(err);
+      return next(
+        new ErrorResponse(
+          `Note not found with that id of ${req.params.id}`,
+          404
+        )
+      );
     }
     res.status(200).json({ succes: true, data: note });
   } catch (err) {
@@ -44,7 +49,12 @@ exports.editNoteData = async (req, res, next) => {
       runValidators: true,
     });
     if (!editnote) {
-      return next(err);
+      return next(
+        new ErrorResponse(
+          `Note not found with that id of ${req.params.id}`,
+          404
+        )
+      );
     }
     res.status(200).json({ succes: true, data: editnote });
   } catch (err) {
@@ -57,7 +67,12 @@ exports.deleteNote = async (req, res, next) => {
   try {
     const delnote = await Note.findByIdAndDelete(req.params.id);
     if (!delnote) {
-      return next(err);
+      return next(
+        new ErrorResponse(
+          `Note not found with that id of ${req.params.id}`,
+          404
+        )
+      );
     }
     res
       .status(200)
