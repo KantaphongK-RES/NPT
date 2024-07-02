@@ -85,7 +85,7 @@ exports.photoUpload = asyncHandler(async (req, res, next) => {
   if (file.size > process.env.MAX_FILE_UPLOAD) {
     return next(
       new ErrorResponse(
-        `please attach the photo file(s) that size is/are less than ${process.env.MAX_FILE_UPLOAD} `,
+        `please attach the photo file(s) that size is(are) less than ${process.env.MAX_FILE_UPLOAD} `,
         400
       )
     );
