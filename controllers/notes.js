@@ -58,3 +58,24 @@ exports.deleteNote = asyncHandler(async (req, res, next) => {
 //3.create note     , POST   /api/v1/notes      , private
 //4.Update note data, PUT    /api/v1/notes/:id  , private
 //5.Delete note data, DELETE /api/v1/notes/:id  , private
+
+//  CRUD CRUD CRUD CRUD CRUD CRUD CRUD CRUD CRUD CRUD CRUD CRUD CRUD CRUD CRUD 
+
+//6.
+exports.photoUpload = asyncHandler(async (req, res, next) => {
+  const photo = await Note.findById(req.params.id);
+  if (!photo) {
+    return next(
+      new ErrorResponse(
+        `Note data not found with that id of ${req.params.id}`,
+        404
+      )
+    );
+  }
+  if (!req.files) {
+    return next(new ErrorResponse(`please attach the photo file(s) `, 400));
+  }
+});
+//6.Upload note photo, PUT /api/v1/notes/:id/photo  , private
+
+// File upload File upload File upload File upload File upload File upload

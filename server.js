@@ -6,6 +6,7 @@ const connectDB = require("./config/db.js");
 connectDB();
 const colors = require("colors");
 const errorHandler = require("./middleware/error.js");
+const fileupload = require("express-fileupload");
 
 const app = express();
 app.use(express.json());
@@ -14,6 +15,8 @@ const controllersNotes = require("./routes/notes.js");
 if (process.env.NODE_ENV === "Development") {
   app.use(morgan("dev"));
 }
+
+app.use(fileupload());
 app.use("/api/v1/Notes", controllersNotes);
 app.use(errorHandler);
 const server = app.listen(
