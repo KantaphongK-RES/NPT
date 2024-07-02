@@ -13,7 +13,10 @@ const errorHandler = (err, req, res, next) => {
   }
   if (err.name === "ValidationError") {
     const message = Object.values(err.errors).map((val) => val.message);
-    error = new ErrorResponse(`please fix the following error(s) :: ${message}`, 400);
+    error = new ErrorResponse(
+      `please fix the following error(s) :: ${message}`,
+      400
+    );
   }
   console.log(err.stack.red);
   res
