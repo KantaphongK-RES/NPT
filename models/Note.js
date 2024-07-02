@@ -46,7 +46,7 @@ const NotesSchema = new mongoose.Schema({
     default: Date.now,
   },
 });
-NotesSchema.pre("save", function () {
+NotesSchema.pre("save", function (next) {
   this.name = slugify(this.notename, { lower: true });
   next();
 });
