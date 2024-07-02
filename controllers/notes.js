@@ -1,11 +1,10 @@
-const express = require("express");
 const Note = require("../models/Note");
-const router = express.Router();
+const ErrorResponse = require("../utils/errorResponse");
 // get all notes, GET /api/v1/notes, public
 exports.getAllNotesData = async (req, res, next) => {
   try {
     const notes = await Note.find();
-    if ((notes = [])) {
+    if (!notes) {
       return res.status(400).json({ success: false, msg: "No notes found" });
     }
     res.status(200).json({ succes: true, data: notes, count: notes.length });
@@ -19,11 +18,21 @@ exports.getNoteData = async (req, res, next) => {
   try {
     const note = await Note.findById(req.params.id);
     if (!note) {
-      return res.status(400).json({ success: false });
+      return next(
+        new ErrorResponse(
+          `Note not found with that id of ${req.params.id}`,
+          404
+        )
+      );
     }
     res.status(200).json({ succes: true, data: note });
   } catch (err) {
-    res.status(400).json({ success: false });
+    next(
+      new ErrorResponse(
+        `Note not found with that id of ${req.params.id}`,
+        404
+      )
+    );
   }
 };
 
