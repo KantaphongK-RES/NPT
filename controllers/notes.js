@@ -28,10 +28,7 @@ exports.getNoteData = async (req, res, next) => {
     res.status(200).json({ succes: true, data: note });
   } catch (err) {
     next(
-      new ErrorResponse(
-        `Note not found with that id of ${req.params.id}`,
-        404
-      )
+      new ErrorResponse(`Note not found with that id of ${req.params.id}`, 404)
     );
   }
 };
