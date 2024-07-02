@@ -45,9 +45,12 @@ const NotesSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  slug: {
+    type: String,
+  },
 });
 NotesSchema.pre("save", function (next) {
-  this.name = slugify(this.notename, { lower: true });
+  this.slug = slugify(this.notename, { lower: true });
   next();
 });
 module.exports = mongoose.model("Note", NotesSchema);
