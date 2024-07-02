@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const NotesSchema = new mongoose.Schema({
   notename: {
     type: String,
-    required: [true, "please add a name"],
+    required: [true, "Please add a name"],
     unique: true,
     trim: true,
     maxlength: [50, "name can not exceed 50 characters"],
@@ -11,7 +11,7 @@ const NotesSchema = new mongoose.Schema({
   slug: String,
   content: {
     type: String,
-    required: [true, "please add content of note"],
+    required: [true, "Please add content of note"],
     maxlength: [500, "name can not exceed 500 characters"],
   },
   links: {
@@ -23,18 +23,18 @@ const NotesSchema = new mongoose.Schema({
   },
   tags: {
     type: String,
-    required: [true, "please add tags of note"],
+    required: [true, "Please add tags of note"],
     maxlength: [20, "name can not exceed 20 characters"],
   },
 
   subject: {
     type: String,
-    required: [true, "please add subject for note"],
+    required: [true, "Please add subject for note"],
     maxlength: [20, "name can not exceed 20 characters"],
   },
   weightsforpriority: {
     type: Number,
-    required: [true, "please rate the priority for note"],
+    required: [true,  "Please rate the priority for note"],
     min: [1, "weight can be less than 1"],
     max: [10, "weight can be greater than 10"],
   },

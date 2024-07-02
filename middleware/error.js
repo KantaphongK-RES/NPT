@@ -11,6 +11,10 @@ const errorHandler = (err, req, res, next) => {
     const message = `Duplicate resource with name of note ${req.body.notename} existed`;
     error = new ErrorResponse(message, 400);
   }
+  if (err.name === "ValidationError") {
+    const message = Object.values(err.errors).map((val) => val.message);
+    error = new ErrorResponse(`please fix the following error(s) :: ${message}`, 400);
+  }
   console.log(err.stack.red);
   res
     .status(error.statusCode || 500)
