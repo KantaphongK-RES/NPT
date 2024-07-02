@@ -9,7 +9,6 @@ const NotesSchema = new mongoose.Schema({
     trim: true,
     maxlength: [50, "name can not exceed 50 characters"],
   },
-  slug: String,
   content: {
     type: String,
     required: [true, "Please add content of note"],
@@ -27,7 +26,6 @@ const NotesSchema = new mongoose.Schema({
     required: [true, "Please add tags of note"],
     maxlength: [20, "name can not exceed 20 characters"],
   },
-
   subject: {
     type: String,
     required: [true, "Please add subject for note"],
@@ -49,7 +47,7 @@ const NotesSchema = new mongoose.Schema({
   },
 });
 NotesSchema.pre("save", function () {
-  this.slug = slugify(this.name, { lower: true });
+  this.name = slugify(this.notename, { lower: true });
   next();
 });
 module.exports = mongoose.model("Note", NotesSchema);
