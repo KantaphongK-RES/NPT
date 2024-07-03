@@ -21,7 +21,7 @@ if (process.env.NODE_ENV === "Development") {
 app.use(fileupload());
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/api/v1/Notes", controllersNotes);
-app.use("api/v1/auth", auth);
+app.use("/api/v1/auth", auth);
 
 app.use(errorHandler);
 const server = app.listen(
