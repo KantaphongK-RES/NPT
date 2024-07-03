@@ -1,4 +1,5 @@
 const express = require("express");
+const router = express.Router();
 const {
   getAllNotesData,
   getNoteData,
@@ -7,10 +8,14 @@ const {
   deleteNote,
   photoUpload,
 } = require("../controllers/notes");
+const { permissionProtect } = require("../middleware/authpermission");
 
-const router = express.Router();
 router.route("/").get(getAllNotesData).post(postNoteData);
-router.route("/:id").get(getNoteData).put(editNoteData).delete(deleteNote);
+router
+  .route("/:id")
+  .get(permissionProtect, getNoteData)
+  .put(permissionProtect, editNoteData)
+  .delete(permissionProtect, deleteNote);
 router.route("/:id/photo").put(photoUpload);
 
 module.exports = router;
