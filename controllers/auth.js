@@ -15,12 +15,14 @@ exports.login = asyncHandler(async (req, res, next) => {
       new ErrorResponse("Please  provide an email and password", 400)
     );
   }
+  const user = await User.findOne({ email }).select("+password");
+  if (!user) {
+    return next(new ErrorResponse("Invalid token", 401));
+  }
   const isMatch = await user.matchPassword(password);
   if (!isMatch) {
     return next(new ErrorResponse("Invalid password", 401));
   }
-  const user = await this.user.findOne({ email }.select("+password"));
-  if (!user) {
-    return next(new ErrorResponse("Invalid token", 401));
-  }
+  const token = user.getSignedJwtToken();
+  res.status(200).json({ success: true, token });
 });
