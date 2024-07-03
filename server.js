@@ -8,7 +8,8 @@ connectDB();
 const colors = require("colors");
 const errorHandler = require("./middleware/error.js");
 const fileupload = require("express-fileupload");
-
+//Route files
+const auth = require("./routes/auth.js");
 const app = express();
 app.use(express.json());
 const PORT = process.env.PORT || 5000;
@@ -20,6 +21,8 @@ if (process.env.NODE_ENV === "Development") {
 app.use(fileupload());
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/api/v1/Notes", controllersNotes);
+app.use("api/v1/auth", auth);
+
 app.use(errorHandler);
 const server = app.listen(
   PORT,
