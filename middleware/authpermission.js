@@ -7,7 +7,7 @@ exports.permissionProtect = asyncHandler(async (req, res, next) => {
   let token;
   if (
     req.headers.authorization &&
-    req.headers.authorization.startWith("bearer")
+    req.headers.authorization.startsWith("bearer")
   ) {
     token = req.headers.authorization.split("")[1];
   }
