@@ -44,3 +44,7 @@ const sendTokenResponse = (user, statusCode, res) => {
     token,
   });
 };
+exports.getHimselfNotes = asyncHandler(async (req, res, next) => {
+  const userNotesData = await User.findById(req.user.id);
+  res.status(200).json({ success: true, json: userNotesData });
+});
