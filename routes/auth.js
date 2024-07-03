@@ -5,6 +5,6 @@ const { permissionProtect } = require("../middleware/authpermission");
 
 router.get("/me", getHimselfNotes);
 router.post("/register", register);
-router.post("/login", login);
+router.post("/login", permissionProtect, login);
 
 module.exports = router;
