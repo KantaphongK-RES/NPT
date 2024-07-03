@@ -8,10 +8,12 @@ connectDB();
 const colors = require("colors");
 const errorHandler = require("./middleware/error.js");
 const fileupload = require("express-fileupload");
+const cookieParser = require("cookie-parser");
 //Route files
 const auth = require("./routes/auth.js");
 const app = express();
 app.use(express.json());
+app.use(cookieParser());
 const PORT = process.env.PORT || 5000;
 const controllersNotes = require("./routes/notes.js");
 if (process.env.NODE_ENV === "Development") {
