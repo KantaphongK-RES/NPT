@@ -48,3 +48,10 @@ exports.getHimselfNotes = asyncHandler(async (req, res, next) => {
   const userNotesData = await User.findById(req.user.id);
   res.status(200).json({ success: true, json: userNotesData });
 });
+exports.logout = asyncHandler(async (req, res, next) => {
+  res.cookie("token", "none", {
+    expires: new Date(Date.now() + 10 * 1000),
+    httpOnly: true,
+  });
+  res.status(200).json({ success: true, data: {} });
+});
